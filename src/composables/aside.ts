@@ -7,13 +7,13 @@ export type AsideTab = {
 
 export const ASIDE_TABS: Array<AsideTab> = [
   {
-    icon: "ph:tray",
+    icon: "lucide:inbox",
     label: "My books",
     href: "/",
     filter: (v) => v.filter((v) => !v.trashed),
   },
   {
-    icon: "ph:desktop",
+    icon: "lucide:monitor",
     label: "Locally stored",
     href: "/locally-stored",
     filter: (v) =>

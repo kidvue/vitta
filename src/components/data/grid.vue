@@ -1,12 +1,16 @@
 <script setup lang="ts">
-type Props = { books: Book[] };
+import {} from "@vueuse/core";
+
 type CalculateTransactionOptions = {
     book: Book;
     earliest?: Date;
     type: Book["pages"][0]["type"];
 };
 
-const { books } = defineProps<Props>();
+const element = shallowRef();
+const is_hovered = shallowRef(false);
+const selected_books = useSelectedBooks();
+
 const book_income_percentage = computed(() => {
     return (book: Book) => {
         const income = calculateTransaction({ book, type: "income" });
@@ -32,17 +36,30 @@ function calculateTransaction(opts: CalculateTransactionOptions) {
 
     return result;
 }
+
+defineProps<{ book: Book }>();
 </script>
 
 <template>
     <nuxt-link
-        v-for="book of books"
-        :key="book.id"
         :href="`/b/${book.id}`"
         class="border rounded-xl p-4 bg-white border-neutral-200 text-left transition hover:(bg-neutral-100) space-y-4"
+        @onmouseover="() => (is_hovered = true)"
+        @onmouseleave="() => (is_hovered = false)"
     >
         <div class="flex justify-between pointer-events-none">
-            {{ book.name }}
+            <div class="relative flex items-center">
+                <button
+                    :class="[
+                        'border rounded h-4 w-4 pointer-events-auto ',
+                        is_hovered ? '' : '',
+                    ]"
+                ></button>
+
+                <span :class="['', is_hovered ? '' : '']">
+                    {{ book.name }}
+                </span>
+            </div>
 
             <span class="text-xl">
                 ${{
@@ -56,24 +73,20 @@ function calculateTransaction(opts: CalculateTransactionOptions) {
                 class="min-w-1 bg-red h-4 rounded"
                 :style="{
                     width: `${book_expense_percentage(book)}%`,
-                    background:
-                        'repeating-linear-gradient(-45deg ,#F00, 2px, #ffffff 2px, #ffffff 4px)',
                 }"
             />
             <span
-                class="min-w-1 bg-green h-4 rounded"
+                class="min-w-1 bg-vue-green h-4 rounded"
                 :style="{
                     width: `${book_income_percentage(book)}%`,
-                    background:
-                        'repeating-linear-gradient(-45deg ,#0F0, 2px, #ffffff 2px, #ffffff 4px)',
                 }"
             />
             <span
-                class="min-w-1 flex-grow bg-neutral-300 h-4 rounded magic-pattern"
+                class="min-w-1 flex-grow h-4 rounded bg-white"
                 :style="{
-                    opacity: 0.25,
+                    opacity: 0.75,
                     background:
-                        'repeating-linear-gradient(-45deg ,#000000, 2px, #ffffff 2px, #ffffff 4px)',
+                        'repeating-linear-gradient(-45deg ,#35495e, 2px, #ffffff 2px, #ffffff 4px)',
                 }"
             />
         </div>
@@ -110,8 +123,3 @@ function calculateTransaction(opts: CalculateTransactionOptions) {
         </div>
     </nuxt-link>
 </template>
-
-<style>
-.magic-pattern {
-}
-</style>

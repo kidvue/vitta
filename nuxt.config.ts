@@ -11,6 +11,11 @@ export default defineNuxtConfig({
   css: ["@unocss/reset/tailwind.css"],
   modules: ["@nuxt/icon", "@nuxt/fonts", "@nuxt/eslint", "@unocss/nuxt"],
   unocss: {
+    theme: {
+      colors: {
+        vue: { green: "#42b883", navy: "#35495e" },
+      },
+    },
     transformers: [
       transformerDirectives(),
       transformerCompileClass(),

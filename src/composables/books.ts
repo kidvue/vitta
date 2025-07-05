@@ -11,6 +11,8 @@ export const BOOK_FREQUENCIES: Book["budget"]["frequency"][] = [
   "quarterly",
 ];
 
+export const useSelectedBooks = () =>
+  useState<string[]>("selected-books", () => []);
 export const useBookStore = () => idb.createStore("vitta", "books");
 export const useBookState = () =>
   useState<Book[]>("books", () => [createFakeBook()]);
