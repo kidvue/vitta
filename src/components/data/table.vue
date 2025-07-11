@@ -10,11 +10,13 @@ defineProps<{ books: Book[]; page: string }>();
             {{ page }}
         </h1>
 
-        <UiButton apperance="text" square @click="is_grid_view = !is_grid_view">
-            <Icon
-                :name="is_grid_view ? 'ph:squares-four' : 'ph:list-bullets'"
-            />
-        </UiButton>
+        <UiButton
+            apperance="text"
+            center
+            square
+            :icon="is_grid_view ? 'ph:squares-four' : 'ph:list-bullets'"
+            @click="is_grid_view = !is_grid_view"
+        />
     </div>
 
     <main

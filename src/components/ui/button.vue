@@ -9,6 +9,7 @@ type ButtonProps = {
     square?: boolean;
     block?: boolean;
     center?: boolean;
+    icon?: string;
 };
 
 const SIZES: Record<Size, string[]> = {
@@ -40,9 +41,11 @@ defineProps<ButtonProps>();
             ...SPACING[spacing || 'medium'],
             square && 'aspect-square px-0',
             block && 'w-full',
-            center && 'justify-center',
+            (center || (icon && square)) && 'justify-center',
         ]"
     >
+        <Icon v-if="icon" :name="icon" />
+
         <slot />
     </button>
 </template>
