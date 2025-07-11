@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import IconPlus from "~icons/lucide/plus";
 import IconGrid from "~icons/lucide/grid";
+import IconReceiptText from "~icons/lucide/receipt-text";
+import IconPiggyBank from "~icons/lucide/piggy-bank";
+import IconWallet from "~icons/lucide/wallet";
 import IconSettings from "~icons/lucide/settings";
 
 import {
@@ -15,10 +18,10 @@ import {
 
 const links = [
     { path: "/", name: "Overview", icon: IconGrid },
-    { path: "/transactions", name: "Transactions", icon: IconGrid },
-    { path: "/budgets", name: "Budgets", icon: IconGrid },
-    { path: "/accounts", name: "Accounts", icon: IconGrid },
-    { path: "/settings", name: "Settings", icon: IconGrid },
+    { path: "/transactions", name: "Transactions", icon: IconReceiptText },
+    { path: "/budgets", name: "Budgets", icon: IconPiggyBank },
+    { path: "/accounts", name: "Accounts", icon: IconWallet },
+    { path: "/settings", name: "Settings", icon: IconSettings },
 ];
 
 const route = useRoute();
@@ -26,23 +29,26 @@ const route = useRoute();
 
 <template>
     <div class="sticky top-0 flex items-center justify-center gap-4 p-4">
-        <div class="bg-white border shadow-lg px-2 rounded-lg flex">
+        <div
+            class="bg-white border shadow-lg rounded-xl grid grid-cols-5 gap-2 p-2 px-4"
+        >
             <nuxt-link
                 v-for="link in links"
                 :key="link.path"
                 :to="link.path"
                 :class="[
-                    'h-14 px-4 transition flex flex-col justify-center gap-1 items-center relative font-medium',
-                    route.path === link.path
-                        ? 'text-vue-green'
-                        : 'text-black/60',
+                    'h-12 w-12 transition flex flex-col justify-center gap-1 items-center relative rounded-lg',
+                    route.path !== link.path && 'hover:(bg-neutral-100)',
                 ]"
             >
-                <component :is="link.icon" />
+                <component :is="link.icon" :class="['']" />
+
                 <span
                     :class="[
-                        'transition-all',
-                        route.path === link.path ? 'text-sm' : 'text-[0em]',
+                        'absolute transition-all text-xs shadow-md pointer-events-none bg-white p-1 px-1.5 border rounded-md',
+                        route.path === link.path
+                            ? '-mt-16'
+                            : 'opacity-0 -mt-10',
                     ]"
                 >
                     {{ link.name }}
