@@ -22,7 +22,9 @@ defineProps<{ books: Book[]; page: string }>();
     <main
         :class="[
             'flex-grow overflow-y-auto max-h-full',
-            is_grid_view ? 'p-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3' : '',
+            is_grid_view
+                ? 'p-4 grid gap-4 md:(grid-cols-2 bg-green) xl:(grid-cols-3 bg-yellow) 3xl:(grid-cols-4 bg-red)'
+                : '',
         ]"
     >
         <template v-for="book of books" :key="book.id">

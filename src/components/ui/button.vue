@@ -24,7 +24,7 @@ const SPACING: Record<Spacing, string[]> = {
 };
 const APPERANCES: Record<Apperance, string[]> = {
     outlined: [],
-    primary: ["bg-vue-green cursor-pointer"],
+    primary: ["bg-vue-navy text-white cursor-pointer"],
     soft: ["bg-vue-navy/25"],
     text: ["", "hover:(bg-neutral-200)"],
 };

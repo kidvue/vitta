@@ -9,7 +9,6 @@ type CalculateTransactionOptions = {
 
 const element = shallowRef();
 const is_hovered = shallowRef(false);
-const selected_books = useSelectedBooks();
 
 const book_income_percentage = computed(() => {
     return (book: Book) => {
@@ -48,18 +47,9 @@ defineProps<{ book: Book }>();
         @onmouseleave="() => (is_hovered = false)"
     >
         <div class="flex justify-between pointer-events-none">
-            <div class="relative flex items-center">
-                <button
-                    :class="[
-                        'border rounded h-4 w-4 pointer-events-auto ',
-                        is_hovered ? '' : '',
-                    ]"
-                ></button>
-
-                <span :class="['', is_hovered ? '' : '']">
-                    {{ book.name }}
-                </span>
-            </div>
+            <span :class="['', is_hovered ? '' : '']">
+                {{ book.name }}
+            </span>
 
             <span class="text-xl">
                 ${{
